@@ -8,6 +8,7 @@ Tables can be defined with:
 * Index column
 * Limited size of column width with trim or wrap display options
 * Sort options
+* Indent the whole table
 
 Here's an example of creation a table with 4 columns, entering the values, and generating the text for the table to be displayed:
 ```cs
@@ -27,7 +28,7 @@ Console.WriteLine(t.CompileTable());
 
 ```
 
-And the output will look like 
+And the output will look like: 
 <pre>
   # A   B                     C     D  
   - --- --------------------- ----- -- 
@@ -38,13 +39,13 @@ And the output will look like
   5 43  Paul                  4     DD 
 </pre>
 
-To updating column B to warp on 16 chars
+To updating column B to warp on 16 chars:
 ```cs
 t.UpdateColumn(1, StringTable.WrapText.Wrap, 15);
 Console.WriteLine(t.CompileTable());
 ```
 
-And the output will look like 
+And the output will look like: 
 <pre>
   # A   B               C     D  
   - --- --------------- ----- -- 
@@ -56,21 +57,23 @@ And the output will look like
   5 43  Paul            4     DD 
 </pre>
 
-To remove the index column and trim column B to 15 chars
+
+To remove the index column, trim column B to 15 chars, and indent the table in 8 chars:
 ```cs
 t.AddIndexLineColumn = false;
 t.UpdateColumn(1, StringTable.WrapText.TrimEnd, 15);
+t.Indentation = 8;
 Console.WriteLine(t.CompileTable());
 ```
 
-And the output will look like 
+And the output will look like: 
 <pre>
-  A   B               C     D  
-  --- --------------- ----- -- 
-  34  David Davidso.. Nice  8  
-  132 Dora            Smith DD 
-  23  John            Smith DD 
-  432 Lisa            Black DD 
-  43  Paul            4     DD 
+        A   B               C     D  
+        --- --------------- ----- -- 
+        34  David Davidso.. Nice  8  
+        132 Dora            Smith DD 
+        23  John            Smith DD 
+        432 Lisa            Black DD 
+        43  Paul            4     DD 
 </pre>
 
