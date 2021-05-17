@@ -1,13 +1,13 @@
 # StringTableDemo
 This project demonstrates how to use a class called *StringTable.cs*
 
-StringTable.cs This is an independent class which can be used to generate a string table to be used in a mon spaced text (like terminal, or text editors with monospace font). 
+StringTable.cs is an independent class which can be used to generate a string table for a mono spaced fonts text. 
 
-Tables can have the following features:
-* Names columns
-* Limited size of column width with trim or wrap options
+Tables can be defined with: 
+* Named columns
+* Limited size of column width with trim or wrap display options
 * Index column
-* Sort by column or few columns
+* Sort 
 
 Here's an example of creation a table with 4 columns, entering the values, and generating the text for the table to be displayed:
 ```cs
