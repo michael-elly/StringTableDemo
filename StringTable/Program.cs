@@ -43,6 +43,8 @@ namespace StringTableDemo {
 			Console.WriteLine($"Sample {++i}");
 			t.AddIndexLineColumn = false;
 			Console.WriteLine(t.CompileTable());
+
+			Console.ReadKey();
 		}
 	}
 }
