@@ -19,23 +19,25 @@ public class StringTable {
 	}
 
 	private List<(string name, WrapText wrapText, int maxColWidth)> mColumns = new List<(string name, WrapText wrapText, int maxColWidth)>();
-	private List<object[]> mRowVals = new List<object[]>();
 
 	public void UpdateColumn(int colIndex, WrapText wrapText, int maxColWidth) {
 		if (colIndex < mColumns.Count && colIndex >= 0) {
 			string name = mColumns[colIndex].name;
-			mColumns[colIndex] = (name, wrapText, maxColWidth);
+			mColumns[colIndex] = (name, wrapText, maxColWidth);			
 		}
 	}
 
-	public StringTable(string[] columnNames) {
+	private readonly DataTable d;
+	public StringTable(string[] columnNames, List<int> numericColumnIndexes = null) {
+		d = new DataTable(); 
 		for (int i = 0; i < columnNames.Length; i++) {
-			mColumns.Add((columnNames[i], WrapText.TrimStart, int.MaxValue));
+			mColumns.Add((columnNames[i], WrapText.TrimEnd, int.MaxValue));
+			d.Columns.Add(columnNames[i], (numericColumnIndexes != null && numericColumnIndexes.Contains(i) ? typeof(double) : typeof(string)));
 		}
 	}
 
 	public void AddRow(object[] row_elements) {
-		mRowVals.Add(row_elements);
+		d.Rows.Add(row_elements); 
 	}
 
 	public string CompileTable() {
@@ -43,16 +45,7 @@ public class StringTable {
 
 		// check we have some value
 		if (mColumns.Count <= 0) return "Error: No table columns defined.";
-		if (mRowVals.Count <= 0) return "Error: No table rows defined.";
-
-		// setup the datatable
-		DataTable d = new DataTable();
-		try {
-			for (i = 0; i < mColumns.Count; i++) d.Columns.Add(mColumns[i].name);
-			for (i = 0; i < mRowVals.Count; i++) d.Rows.Add(mRowVals[i]);
-		} catch (Exception ex) {
-			return $"Error constructing DataTable: {ex.Message}";
-		}
+		if (d.Rows.Count <= 0) return "Error: No table rows defined.";
 
 		// construct the string
 		string CrLf = Environment.NewLine;
@@ -101,14 +94,18 @@ public class StringTable {
 				s.Append(indent_str);
 				if (AddIndexLineColumn) s.Append("#".PadRight(index_column_width));
 				for (int j = 0; j <= table_columns_count - 1; j++) {
-					s.Append(d.Columns[j].ToString().PadRight(col_width[j]));
+					if (d.Columns[j].ColumnName.Length <= col_width[j]) {
+						s.Append(d.Columns[j].ColumnName.ToString().PadRight(col_width[j]));
+					} else {
+						s.Append(d.Columns[j].ColumnName.ToString().Substring(0, col_width[j]-1).PadRight(col_width[j]));
+					}
 				}
 				s.Append(CrLf);
 				if (UnderlineHeader) {
 					s.Append(indent_str);
 					if (AddIndexLineColumn) s.Append("".PadRight(index_column_width - 1, '-').PadRight(index_column_width));
 					for (int j = 0; j <= table_columns_count - 1; j++) {
-						s.Append(new string(' ', d.Columns[j].ToString().PadRight(col_width[j]).Length - 1).Replace(" ", "-") + " ");
+						s.Append("".PadRight(col_width[j] - 1, '-').PadRight(col_width[j]));
 					}
 					s.Append(CrLf);
 				}
