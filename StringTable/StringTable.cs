@@ -40,6 +40,8 @@ public class StringTable {
 		d.Rows.Add(row_elements); 
 	}
 
+	public int RowCount { get { return d.Rows.Count; } }
+
 	public string CompileTable() {
 		int i; // row index
 
