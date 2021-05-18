@@ -1,7 +1,7 @@
 # StringTable
 This project demonstrates how to use a class called *StringTable.cs*
 
-StringTable.cs is a single independent class that can be copied to you C# project. This class generates a simple string which displays a table. It will automatically calculate the best width of each column and format the table to be nicely displayed in terminal or any monospaced-font based display. 
+StringTable.cs is a single independent class that can be copied to you C# project. This class formats a table as a plain text. It will automatically calculate the best width of each column and format the table to be nicely displayed in terminal or any monospaced-font display. 
 
 Tables can be defined with: 
 * Underlined column headers
