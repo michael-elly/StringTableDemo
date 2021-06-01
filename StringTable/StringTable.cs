@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data;
 
+// https://github.com/michael-elly/StringTableDemo
+
 public class StringTable {
 	public string SortSyntax { get; set; }
 	public int Indentation { get; set; } = 0;
@@ -23,13 +25,13 @@ public class StringTable {
 	public void UpdateColumn(int colIndex, WrapText wrapText, int maxColWidth) {
 		if (colIndex < mColumns.Count && colIndex >= 0) {
 			string name = mColumns[colIndex].name;
-			mColumns[colIndex] = (name, wrapText, maxColWidth);			
+			mColumns[colIndex] = (name, wrapText, maxColWidth);
 		}
 	}
 
 	private readonly DataTable d;
 	public StringTable(string[] columnNames, List<int> numericColumnIndexes = null) {
-		d = new DataTable(); 
+		d = new DataTable();
 		for (int i = 0; i < columnNames.Length; i++) {
 			mColumns.Add((columnNames[i], WrapText.TrimEnd, int.MaxValue));
 			d.Columns.Add(columnNames[i], (numericColumnIndexes != null && numericColumnIndexes.Contains(i) ? typeof(double) : typeof(string)));
@@ -37,7 +39,7 @@ public class StringTable {
 	}
 
 	public void AddRow(object[] row_elements) {
-		d.Rows.Add(row_elements); 
+		d.Rows.Add(row_elements);
 	}
 
 	public int RowCount { get { return d.Rows.Count; } }
@@ -47,7 +49,7 @@ public class StringTable {
 
 		// check we have some value
 		if (mColumns.Count <= 0) return "Error: No table columns defined.";
-		if (d.Rows.Count <= 0) return "Error: No table rows defined.";
+		//if (d.Rows.Count <= 0) return "Error: No table rows defined.";
 
 		// construct the string
 		string CrLf = Environment.NewLine;
@@ -99,7 +101,7 @@ public class StringTable {
 					if (d.Columns[j].ColumnName.Length <= col_width[j]) {
 						s.Append(d.Columns[j].ColumnName.ToString().PadRight(col_width[j]));
 					} else {
-						s.Append(d.Columns[j].ColumnName.ToString().Substring(0, col_width[j]-1).PadRight(col_width[j]));
+						s.Append(d.Columns[j].ColumnName.ToString().Substring(0, col_width[j] - 1).PadRight(col_width[j]));
 					}
 				}
 				s.Append(CrLf);
@@ -113,6 +115,15 @@ public class StringTable {
 				}
 				h = s.ToString();
 				s.Clear(); // we're going to rebuild the report including the header
+			}
+
+			// in case we dont have any rows
+			if (d.Rows.Count == 0) {
+				if (DrawHeader) {
+					return h;
+				} else {
+					return indent_str;
+				}
 			}
 
 			// create the dataview and sort it
@@ -196,4 +207,3 @@ public class StringTable {
 		}
 	}
 }
-
