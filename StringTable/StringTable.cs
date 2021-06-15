@@ -44,6 +44,10 @@ public class StringTable {
 
 	public int RowCount { get { return d.Rows.Count; } }
 
+	public override string ToString() {
+		return CompileTable();
+	}
+
 	public string CompileTable() {
 		int i; // row index
 
