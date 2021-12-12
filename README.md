@@ -23,8 +23,6 @@ t.AddRow(new object[] { "PJ Lee", 4, @"C:\temp\Michael\quick\obj", 34 });
 t.AddRow(new object[] { "Li Ann", "Black", @"C:\temp\abc\quick\obj", 12 });
 t.AddRow(new object[] { "Pi Wa", "Doll", @"C:\temp\John\quick\obj", 32 });
 
-string NL = Environment.NewLine;
-Console.WriteLine($"Sample 1: Generating the table sorted by name{NL}");
 Console.WriteLine(t.CompileTable());
 ```
 
