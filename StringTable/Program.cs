@@ -18,7 +18,11 @@ namespace StringTableDemo {
 
 			int n = 1;
 			string NL = Environment.NewLine;
-			Console.WriteLine($"Sample {n++}: Generating the table sorted by name{NL}");
+			Console.WriteLine($"Sample {n++}: Generating the table{NL}");
+			Console.WriteLine(t.CompileTable());
+
+			Console.WriteLine($"{NL}Sample {n++}: Sort by name{NL}");
+			t.SortSyntax = "Full Name";
 			Console.WriteLine(t.CompileTable());
 
 			Console.WriteLine($"{NL}Sample {n++}: Updating 3rd column to warp after 30 chars, indenting in 2{NL}");
@@ -54,6 +58,25 @@ namespace StringTableDemo {
 			t.AddRow(new object[] { "Li Ann", "Black", @"C:\temp\abc\quick\obj", 12 });
 			t.AddRow(new object[] { "Pi Wa", "Doll", @"C:\temp\John\quick\obj", 32 });
 			Console.WriteLine(t.CompileTable());
+
+			// Now plotting
+			Console.WriteLine($"{NL}Sample {n++}: Sin Plot{NL}");
+			List<double> v = new List<double>();
+			for (int i = 0; i < 100; i++) { v.Add(Math.Sin(i * 3.14 / 180 * 12)); }
+			string plot = StringChart.Plot(v, new Options() { AxisLabelFormat = "0.0", AxisLabelLeftMargin = 5, Height = 30, AxisLabelRightMargin = 1 });
+			Console.WriteLine(plot);
+
+			Console.WriteLine($"{NL}Sample {n++}: Sin Plot{NL}");
+			v.Clear();
+			for (int i = 0; i < 100; i++) { v.Add(Math.Sin(i * 3.14 / 180)); }
+			plot = StringChart.Plot(v, new Options() { AxisLabelFormat = "0.0", AxisLabelLeftMargin = 5, Height = 30, AxisLabelRightMargin = 1 }); 
+			Console.WriteLine(plot);
+
+			Console.WriteLine($"{NL}Sample {n++}: Exp Plot{NL}");
+			v.Clear();
+			for (double i = 1; i < 10; i+=.1) { v.Add(Math.Exp(i)); }
+			plot = StringChart.Plot(v, new Options() { AxisLabelFormat = "0.0", AxisLabelLeftMargin = 5, Height = 30, AxisLabelRightMargin = 1 });
+			Console.WriteLine(plot);
 		}
 	}
 }
