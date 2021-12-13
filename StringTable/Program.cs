@@ -60,10 +60,25 @@ namespace StringTableDemo {
 			Console.WriteLine(t.CompileTable());
 
 			// Now plotting
-			Console.WriteLine($"{NL}Sample {n++}: Sin Plot{NL}");
 			Dictionary<double, double> v = new Dictionary<double, double>();
-			for (int i = 0; i < 100; i++) { v[i]=Math.Sin(i * 3.14 / 180 * 12); }
-			string plot = StringChart.Plot(v, new Options() { YLabelformat = "0.0", YMargin = 5, Rows = 30, Columns = 50, XTicks = 5, XLabelformat = "0.00" });
+			string plot;
+
+			Console.WriteLine($"{NL}Sample {n++}: Sin Plot{NL}");
+			v.Clear();
+			for (int i = 0; i <= 360 * 2; i++) { v[i] = Math.Sin(i * 3.14 / 180); }
+			plot = StringChart.Plot(v, new Options() { YLabelformat = "0.0", YMargin = 5, Rows = 30, Columns = 50, XTicks = 4, XLabelformat = "0" });
+			Console.WriteLine(plot);
+
+			Console.WriteLine($"{NL}Sample {n++}: Sin Plot{NL}");
+			v.Clear();
+			for (int i = 0; i <= 360 * 2; i++) { v[i] = Math.Sin(i * 3.14 / 180); }
+			plot = StringChart.Plot(v, new Options() { YLabelformat = "0.0", YMargin = 5, Rows = 30, Columns = 30, XTicks = 4, XLabelformat = "0" });
+			Console.WriteLine(plot);
+
+			Console.WriteLine($"{NL}Sample {n++}: Sin Plot{NL}");
+			v.Clear();
+			for (int i = 0; i <= 360 * 2; i++) { v[i] = Math.Sin(i * 3.14 / 180); }
+			plot = StringChart.Plot(v, new Options() { YLabelformat = "0.0", YMargin = 5, Rows = 30, Columns = 120, XTicks = 4, XLabelformat = "0" });
 			Console.WriteLine(plot);
 
 			Console.WriteLine($"{NL}Sample {n++}: Sin Plot{NL}");

@@ -73,7 +73,7 @@ public static class StringChart {
 			s.AppendLine();
 		}
 		// xlabels			
-		int delta_ticks = o.Columns / o.XTicks;
+		int delta_ticks = o.Columns / (o.XTicks - 1);
 		s.Append("".PadRight(left_pad + 2));
 		s.Append("─");
 		for (int c = 0; c <= o.Columns; c += delta_ticks) {
@@ -101,6 +101,7 @@ public static class StringChart {
 		}
 		return s.ToString();
 
+		// Bug in the XLabels !!!!
 	}
 
 	private static void SetCell(char[,] cells, int y, int x, int rows) {
