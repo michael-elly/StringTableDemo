@@ -61,21 +61,21 @@ namespace StringTableDemo {
 
 			// Now plotting
 			Console.WriteLine($"{NL}Sample {n++}: Sin Plot{NL}");
-			List<double> v = new List<double>();
-			for (int i = 0; i < 100; i++) { v.Add(Math.Sin(i * 3.14 / 180 * 12)); }
-			string plot = StringChart.Plot(v, new Options() { AxisLabelFormat = "0.0", AxisLabelLeftMargin = 5, Height = 30, AxisLabelRightMargin = 1 });
+			Dictionary<double, double> v = new Dictionary<double, double>();
+			for (int i = 0; i < 100; i++) { v[i]=Math.Sin(i * 3.14 / 180 * 12); }
+			string plot = StringChart.Plot(v, new Options() { YLabelformat = "0.0", YMargin = 5, Rows = 30, Columns = 50, XTicks = 5, XLabelformat = "0.00" });
 			Console.WriteLine(plot);
 
 			Console.WriteLine($"{NL}Sample {n++}: Sin Plot{NL}");
 			v.Clear();
-			for (int i = 0; i < 100; i++) { v.Add(Math.Sin(i * 3.14 / 180)); }
-			plot = StringChart.Plot(v, new Options() { AxisLabelFormat = "0.0", AxisLabelLeftMargin = 5, Height = 30, AxisLabelRightMargin = 1 }); 
+			for (int i = 0; i < 100; i++) { v[i] = (Math.Sin(i * 3.14 / 180)); }
+			plot = StringChart.Plot(v, new Options() { YLabelformat = "0.0", YMargin = 5, Rows = 30, Columns = 70, XTicks = 4, XLabelformat = "0.00" }); 
 			Console.WriteLine(plot);
 
 			Console.WriteLine($"{NL}Sample {n++}: Exp Plot{NL}");
 			v.Clear();
-			for (double i = 1; i < 10; i+=.1) { v.Add(Math.Exp(i)); }
-			plot = StringChart.Plot(v, new Options() { AxisLabelFormat = "0.0", AxisLabelLeftMargin = 5, Height = 30, AxisLabelRightMargin = 1 });
+			for (double i = 1; i < 10; i+=.1) { v[i] = (Math.Exp(i)); }
+			plot = StringChart.Plot(v, new Options() { YLabelformat = "0.0", YMargin = 5, Rows = 30, Columns = 90, XTicks = 8, XLabelformat = "0.00" });
 			Console.WriteLine(plot);
 		}
 	}
